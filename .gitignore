@@ -1,0 +1,128 @@
+*.class
+*.log
+*.txt
+
+# plantumlcode
+*.png
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+*.pydevproject
+.metadata
+.gradle
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# Java annotation processor (APT)
+.factorypath
+
+# PDT-specific
+.buildpath
+
+# sbteclipse plugin
+.target
+
+# TeXlipse plugin
+.texlipse
+
+# Directories #
+/build/
+/bin/
+target/
+ 
+# OS Files #
+.DS_Store
+ 
+*.class
+*.pkg
+*.ctxt
+*.bluej
+ 
+# Package Files #
+*.jar
+*.war
+*.ear
+*.db
+
+# written files
+src/default
+src/log
+ 
+######################
+# Windows
+######################
+ 
+# Windows image file caches
+Thumbs.db 
+ 
+# Folder config file
+Desktop.ini
+ 
+######################
+# OSX
+######################
+ 
+.DS_Store
+.svn
+ 
+# Thumbnails
+._*
+ 
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+ 
+ 
+######################
+# Eclipse
+######################
+ 
+*.pydevproject
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+/src/main/resources/rebel.xml
+# External tool builders
+.externalToolBuilders/
+ 
+# Locally stored "Eclipse launch configurations"
+*.launch
+ 
+# CDT-specific
+.cproject
+ 
+# PDT-specific
+.buildpath
+view raw

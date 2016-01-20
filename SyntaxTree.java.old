@@ -1,0 +1,190 @@
+/**
+ * Syntax Tree 
+ * Implemented using an ArrayList of ConsCells.
+ * 
+ * ***SLATED FOR DESTRUCTION***
+ * 
+ * @author Andre Allan Ponce
+ */
+
+import java.util.ArrayList;
+
+public class SyntaxTree{
+	
+	public SyntaxTree(boolean debugMode){
+		tree = new ArrayList<ConsCell<SchemeObject>>();
+		this.debugMode = debugMode;
+	}
+	
+	//==================================================================+
+	// PUBLIC METHODS												  	|
+	//==================================================================+
+	
+	public void add(ConsCell item, int reDex, int addState){
+		switch(addState){
+			case ADD_CAR:{
+				addToCar(item,reDex);
+				break;
+			}
+			case ADD_CDR:{
+				addToCdr(item,reDex);
+				break;
+			}
+			case ADD_BEG:{
+				addItem(item);
+				break;
+			}
+			default:{
+				break; // we shouldnt be going here
+			}
+		}
+	}
+	
+	public void addItem(ConsCell item){
+		if(debugMode){
+			System.out.println("Adding: "+item.getCar().toString() +" | "+item.getCdr().toString());
+		}
+		tree.add(item);
+	}
+	
+	public void addToCar(ConsCell item, int reDex){
+		//tree.set(reDex,new ConsCell<SchemeObject>(new ListLoc(tree.size()),tree.get(reDex).getCdr()));
+		setCarAtToNext(reDex);
+		addItem(item);
+	}
+	
+	public void addToCdr(ConsCell item, int reDex){
+		//tree.set(reDex,new ConsCell<SchemeObject>(tree.get(reDex).getCar(),new ListLoc(tree.size())));
+		setCdrAtToNext(reDex);
+		addItem(item);
+	}
+	
+	public void setCarAt(int at, SchemeObject o){
+		if(debugMode){
+			System.out.println("Setting car at: "+at+" to "+o.toString());
+		}
+		tree.set(at,new ConsCell<SchemeObject>(o,tree.get(at).getCdr()));
+	}
+	
+	public void setCdrAt(int at, SchemeObject o){
+		if(debugMode){
+			System.out.println("Setting cdr at: "+at+" to "+o.toString());
+		}
+		tree.set(at,new ConsCell<SchemeObject>(tree.get(at).getCar(),o));
+	}
+	
+	public void setCarAtTo(int at, int to){
+		if(debugMode){
+			System.out.println("Linking car at "+at+" to "+to);
+		}
+		tree.set(at,new ConsCell<SchemeObject>(new ListLoc(to),tree.get(at).getCdr()));
+	}
+	
+	public void setCdrAtTo(int at, int to){
+		if(debugMode){
+			System.out.println("Linking cdr at "+at+" to "+to);
+		}
+		tree.set(at,new ConsCell<SchemeObject>(tree.get(at).getCar(), new ListLoc(to)));
+	}
+	
+	public void setCarAtToNext(int at){
+		setCarAtTo(at,tree.size());
+	}
+	
+	public void setCdrAtToNext(int at){
+		setCdrAtTo(at,tree.size());
+	}
+	
+	public int size(){
+		return tree.size();
+	}
+	
+	public String toExpr(){
+		
+	}
+	
+	public String toList(){
+		if(tree.size() == 1){
+			
+		}
+	}
+	
+	public String toString(){
+		stringCreationLayer = 0;
+		return createString(0);
+	}
+	
+	//==================================================================+
+	// PRIVATE METHODS												  	|
+	//==================================================================+
+	
+	private String createSpaces(){
+		String space = "";
+		for(int i = 0; i < stringCreationLayer; i++){
+			space = space + "  ";
+		}
+		return space;
+	}
+	
+	private String createString(int index){
+		String temp = "";
+		if(index >= 0){
+			String spaces = createSpaces();
+			if(tree.get(index).getCar().getID() != ListLoc.LIST_LOC_ID){
+				return spaces + "  " + tree.get(index).getCar
+			}
+			if(tree.get(index).getCar().getID() == ListLoc.LIST_LOC_ID){
+				temp = temp + spaces + ConsCell.CONS_CAR_MESSAGE +"\n";
+				stringCreationLayer++;
+				String inSpaces = createSpaces();
+				if(((ListLoc)tree.get(index).getCar()).getValue() > 0){
+					temp = temp +createString(((ListLoc)tree.get(index).getCar()).getValue());
+				}
+				else{
+					temp = temp + spaces +"  "+NULL_STRING+"\n";
+				}
+				stringCreationLayer--;
+			}
+			else{
+				temp = temp + spaces + ConsCell.CONS_CAR_MESSAGE+"\n";
+				if(tree.get(index).getCar() != null){
+					temp = temp +spaces+"  " +tree.get(index).getCar().toString()+"\n";
+				}
+					
+			}
+			if(tree.get(index).getCdr().getID() == ListLoc.LIST_LOC_ID){
+				temp = temp + spaces + ConsCell.CONS_CDR_MESSAGE +"\n";
+				stringCreationLayer++;
+				String inSpaces = createSpaces();
+				if(((ListLoc)tree.get(index).getCdr()).getValue() > 0){
+					temp = temp +createString(((ListLoc)tree.get(index).getCdr()).getValue());
+				}
+				else{
+					temp = temp + spaces+ "  "+NULL_STRING+"\n";
+				}
+				stringCreationLayer--;
+			}
+			else{
+				temp = temp + spaces + ConsCell.CONS_CDR_MESSAGE+"\n";
+				if(tree.get(index).getCdr() != null){
+					temp = temp + spaces+"  "+tree.get(index).getCdr().toString()+"\n";
+				}
+			}
+		}
+		return temp;
+	}
+	
+	//==================================================================+
+	// PRIVATE ATTRIBUTES											  	|
+	//==================================================================+
+	
+	private boolean debugMode;
+	private int stringCreationLayer = 0;
+	private ArrayList<ConsCell<SchemeObject>> tree;
+	public static final int ADD_BEG = 0;
+	public static final int ADD_CAR = 1;
+	public static final int ADD_CDR = 2;
+	
+	// null messages for syntax
+	private static final String NULL_STRING = "NULL";
+}
