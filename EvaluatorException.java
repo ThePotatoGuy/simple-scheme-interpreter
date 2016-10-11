@@ -6,15 +6,15 @@
  */
 
 public class EvaluatorException extends Exception{
-	
-	public EvaluatorException(){
-		super(UNKNOWN_ERROR);
-	}
-	
-	public EvaluatorException(String message){
-		super(EVALUATOR_PREFIX + message);
-	}
-	
-	private static final String UNKNOWN_ERROR = "Unidentified EvaluatorException";
-	private static final String EVALUATOR_PREFIX = "Evaluator Exception: ";
+    
+    public EvaluatorException(){
+        super(UNKNOWN_ERROR);
+    }
+    
+    public EvaluatorException(String message){
+        super(EVALUATOR_PREFIX + message);
+    }
+    
+    private static final String UNKNOWN_ERROR = "Unidentified EvaluatorException";
+    private static final String EVALUATOR_PREFIX = "Evaluator Exception: ";
 }
